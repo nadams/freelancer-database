@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.Menu
 
 class MainActivity extends Activity {
-
+  lazy val navLayout = findViewById(R.id.main_drawer_layout)
+  lazy val navList = findViewById(R.id.main_nav_list)
+  
   override def onCreate(savedInstanceState: Bundle) = {
     super.onCreate(savedInstanceState)
     
