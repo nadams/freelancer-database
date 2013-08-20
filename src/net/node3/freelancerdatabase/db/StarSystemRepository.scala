@@ -27,3 +27,5 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
     def getById(id: Int) = StarSystem(1, "Tau-37")
   }
 }
+
+trait StarSystemRegistry extends StarSystemRepositoryComponentImpl
