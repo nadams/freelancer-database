@@ -6,6 +6,9 @@ import android.view.Menu
 import android.widget.ListView
 import android.widget.ListAdapter
 import android.widget.ArrayAdapter
+import android.view.View
+import android.widget.Toast
+import android.widget.AdapterView
 
 class MainActivity extends Activity {
   lazy val navLayout = findViewById(R.id.main_drawer_layout)
@@ -18,6 +21,7 @@ class MainActivity extends Activity {
     
     val systems = Array("Tau-37", "New York", "Omega-41", "Sovetskaya", "Gurm", "Ryssk")
     navList.setAdapter(new ArrayAdapter(this, R.layout.drawer_list_item, systems))
+    navList.onItemClick { (parent, view, position, id) => Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show }
   }
 
   override def onCreateOptionsMenu(menu: Menu) = {
