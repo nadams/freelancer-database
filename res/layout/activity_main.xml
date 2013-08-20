@@ -12,13 +12,26 @@
         android:layout_height="match_parent"
         android:text="@string/hello_world" />
     
-    <ListView
-        android:id="@+id/main_nav_list"
-        android:layout_width="wrap_content"
+    <LinearLayout 
+        android:layout_width="240dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@android:color/background_dark"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+	    android:layout_gravity="start"
+	    android:background="@android:color/background_dark"
+        android:orientation="vertical">
+        
+        <EditText 
+            android:id="@+id/main_system_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@android:style/Theme.Holo" 
+            android:inputType="text" />
+        
+	    <ListView
+	        android:id="@+id/main_nav_list"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:divider="@android:color/transparent"
+	        android:dividerHeight="0dp" />
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
