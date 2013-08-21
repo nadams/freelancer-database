@@ -12,7 +12,7 @@ import net.node3.freelancerdatabase.db.tables.SystemConnectionTable
 class DatabaseHelper(val context: Context)
   extends SQLiteOpenHelper(context, DatabaseHelper.databaseName, null, DatabaseHelper.databaseVersion) {
   
-  private val tables = List[TableHelper](
+  private val tables = List(
     SectorTable,
     SolarObjectTypeTable,
     StarSystemTable,
