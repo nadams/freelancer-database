@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Freelancer Database</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
 	<string name="main_system_filter_button">Find</string>
+	<string name="main_drawer_open">Open</string>
+	<string name="main_drawer_close">Close</string>
 </resources>
