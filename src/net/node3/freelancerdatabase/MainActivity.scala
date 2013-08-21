@@ -9,10 +9,11 @@ import android.widget.ListView
 import android.widget.Toast
 import net.node3.freelancerdatabase.db.StarSystemRegistry
 
-class MainActivity extends Activity with StarSystemRegistry {
+class MainActivity extends Activity {
   lazy val navLayout = findViewById(R.id.main_drawer_layout)
   lazy val navList = findViewById(R.id.main_nav_list).asInstanceOf[ListView]
   lazy val searchBox = findViewById(R.id.main_system_filter).asInstanceOf[EditText]
+  lazy val systemRepository = StarSystemRegistry.systemRepository(this)
   
   override def onCreate(savedInstanceState: Bundle) = {
     super.onCreate(savedInstanceState)

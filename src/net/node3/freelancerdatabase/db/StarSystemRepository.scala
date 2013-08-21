@@ -1,9 +1,10 @@
 package net.node3.freelancerdatabase.db
 
 import net.node3.freelancerdatabase.entities.StarSystem
+import android.content.Context
 
 trait StarSystemRepositoryComponent {
-  val systemRepository : StarSystemRepository
+  def systemRepository(context: Context) : StarSystemRepository
   
   trait StarSystemRepository {
     def getAll : Iterable[StarSystem]
@@ -12,9 +13,9 @@ trait StarSystemRepositoryComponent {
 }
 
 trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
-  val systemRepository = new StarSystemRepositoryImpl
+  def systemRepository(context: Context) = new StarSystemRepositoryImpl(context)
   
-  class StarSystemRepositoryImpl extends StarSystemRepository {
+  class StarSystemRepositoryImpl(val context: Context) extends StarSystemRepository {
     def getAll = Array(
         StarSystem(1, "Tau-37"), 
         StarSystem(2, "New York"), 
@@ -28,4 +29,4 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
   }
 }
 
-trait StarSystemRegistry extends StarSystemRepositoryComponentImpl
+object StarSystemRegistry extends StarSystemRepositoryComponentImpl
