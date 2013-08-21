@@ -38,7 +38,7 @@ abstract class TableHelper {
   }
   
   def registerRevision(revision: TableRevision) = {
-    val revisionNumber = revision.getRevisionNumber
+    val revisionNumber = revision.revisionNumber
     
     if(revisionNumber > newestRevision) {
       newestRevision = revisionNumber

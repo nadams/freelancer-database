@@ -11,7 +11,7 @@ object SectorTable extends TableHelper {
     
   lazy val sql = 
     f""" 
-  	  CREATE TABLE IF NOT EXISTS $tableName (
+  	  CREATE TABLE $tableName (
   		  $id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   		  $name TEXT NOT NULL
   	  );
@@ -19,7 +19,7 @@ object SectorTable extends TableHelper {
   		  
   def apply = 
     registerRevision(new TableRevision {
-      override def getRevisionNumber = 1
-      override def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)
+      val revisionNumber = 1
+      def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)
     })
 }

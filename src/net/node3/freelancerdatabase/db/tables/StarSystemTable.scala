@@ -1,5 +1,6 @@
 package net.node3.freelancerdatabase.db.tables
 
+import android.database.sqlite.SQLiteDatabase
 import net.node3.freelancerdatabase.db.TableHelper
 import net.node3.freelancerdatabase.db.TableRevision
 
@@ -9,11 +10,9 @@ object StarSystemTable extends TableHelper {
   val name = "name"
   val sector_id = "sector_id"
     
-  val allColumns = List(id, name, sector_id)
-  
   lazy val sql = 
     f""" 
-    	CREATE TABLE IF NOT EXISTS $tableName (
+    	CREATE TABLE $tableName (
     		$id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     		$name TEXT NOT NULL,
     		$sector_id INTEGER NOT NULL,
@@ -21,4 +20,10 @@ object StarSystemTable extends TableHelper {
     		CONSTRAINT fk_star_system_sector FOREIGN KEY($sector_id) REFERENCES ${SectorTable.name}(${SectorTable.id}) 
     	);
     """
+    		
+  def apply = 
+    registerRevision(new TableRevision {
+      val revisionNumber = 1
+      def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)
+    })
 }
