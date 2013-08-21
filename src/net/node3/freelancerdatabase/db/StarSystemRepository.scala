@@ -7,7 +7,7 @@ trait StarSystemRepositoryComponent {
   
   trait StarSystemRepository {
     def getAll : Iterable[StarSystem]
-    def getById(id: Int) : StarSystem
+    def getById(id: Int) : Option[StarSystem]
   }
 }
 
@@ -24,7 +24,7 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
         StarSystem(6, "Ryssk")
     )
     
-    def getById(id: Int) = StarSystem(1, "Tau-37")
+    def getById(id: Int) = Some(StarSystem(1, "Tau-37"))
   }
 }
 
