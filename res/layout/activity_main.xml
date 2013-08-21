@@ -13,18 +13,30 @@
         android:text="@string/hello_world" />
     
     <LinearLayout 
-        android:layout_width="240dp"
+        android:layout_width="280dp"
         android:layout_height="match_parent"
 	    android:layout_gravity="start"
 	    android:background="@android:color/background_dark"
         android:orientation="vertical">
         
-        <EditText 
-            android:id="@+id/main_system_filter"
+        <RelativeLayout 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@android:style/Theme.Holo" 
-            android:inputType="text" />
+            android:layout_height="wrap_content">
+            
+	        <EditText 
+	            android:id="@+id/main_system_filter"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_toLeftOf="@+id/main_system_filter_button"
+	            android:inputType="text" />
+	        
+	        <Button 
+	            android:id="@+id/main_system_filter_button" 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/main_system_filter_button" 
+	            android:layout_alignParentRight="true" />
+        </RelativeLayout>
         
 	    <ListView
 	        android:id="@+id/main_nav_list"
