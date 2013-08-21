@@ -1,7 +1,9 @@
 package net.node3.freelancerdatabase.db
 
+import scala.collection.Iterator
+
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteException
+import android.util.Log
 
 abstract class TableHelper {
   private val logTag = "DBHelper"
@@ -27,7 +29,7 @@ abstract class TableHelper {
           revisions(version).applyRevision(database)
           database.setTransactionSuccessful
         } catch {
-          case e: SQLiteException => Unit
+          case e: Throwable => Log.e(logTag, "An exception occurred while upgrading the database", e)
         } finally {
           database.endTransaction
         }
