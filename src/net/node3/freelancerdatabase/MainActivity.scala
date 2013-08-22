@@ -33,7 +33,6 @@ class MainActivity extends Activity {
     val actionBar = getActionBar
     actionBar.setDisplayHomeAsUpEnabled(true)
     actionBar.setHomeButtonEnabled(true)
-    
   }
   
   override def onPostCreate(savedInstanceState: Bundle) = {
