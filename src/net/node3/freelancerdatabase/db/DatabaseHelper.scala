@@ -14,10 +14,10 @@ class DatabaseHelper(val context: Context)
   
   private val tables = List(
     SectorTable(context),
-    SolarObjectTypeTable(),
-    StarSystemTable(),
-    SolarObjectTable(),
-    SystemConnectionTable()
+    SolarObjectTypeTable(context),
+    StarSystemTable(context),
+    SolarObjectTable(context),
+    SystemConnectionTable(context)
   )
   
   override def onOpen(db: SQLiteDatabase) = {

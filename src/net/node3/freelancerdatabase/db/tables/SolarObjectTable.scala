@@ -1,5 +1,7 @@
 package net.node3.freelancerdatabase.db.tables
 
+import android.content.Context
+
 import android.database.sqlite.SQLiteDatabase
 import net.node3.freelancerdatabase.db.TableHelper
 import net.node3.freelancerdatabase.db.TableRevision
@@ -35,7 +37,7 @@ object SolarObjectTable extends TableHelper {
     	);
     """
     			
-  def apply() =
+  def apply(context: Context) =
     registerRevision(new TableRevision {
       val revisionNumber = 1
       def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)

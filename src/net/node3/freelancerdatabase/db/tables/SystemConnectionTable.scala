@@ -1,8 +1,10 @@
 package net.node3.freelancerdatabase.db.tables
 
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+
 import net.node3.freelancerdatabase.db.TableHelper
 import net.node3.freelancerdatabase.db.TableRevision
-import android.database.sqlite.SQLiteDatabase
 
 object SystemConnectionTable extends TableHelper {
   val tableName = "system_connection"
@@ -41,7 +43,7 @@ object SystemConnectionTable extends TableHelper {
     	);
     """
     			
-  def apply() = 
+  def apply(context: Context) = 
     registerRevision(new TableRevision {
       val revisionNumber = 1
       def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)

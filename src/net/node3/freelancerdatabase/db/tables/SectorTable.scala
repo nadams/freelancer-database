@@ -1,14 +1,14 @@
 package net.node3.freelancerdatabase.db.tables
 
 import scala.io.Source
+import scala.xml.XML
+
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+
 import net.node3.freelancerdatabase.R
 import net.node3.freelancerdatabase.db.TableHelper
 import net.node3.freelancerdatabase.db.TableRevision
-import scala.xml.XML
-
-case class SectorTable(name: String)
 
 object SectorTable extends TableHelper {
   val tableName = "sector"
