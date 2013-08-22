@@ -1,17 +1,17 @@
 package net.node3.freelancerdatabase
 
 import android.app.Activity
+import android.content.res.Configuration
 import android.os.Bundle
+import android.support.v4.app.ActionBarDrawerToggle
+import android.support.v4.widget.DrawerLayout
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import net.node3.freelancerdatabase.db.StarSystemRegistry
-import android.support.v4.app.ActionBarDrawerToggle
-import android.support.v4.widget.DrawerLayout
-import android.content.res.Configuration
-import android.view.MenuItem
 
 class MainActivity extends Activity {
   lazy val systemRepository = StarSystemRegistry.systemRepository(this)
@@ -33,6 +33,7 @@ class MainActivity extends Activity {
     val actionBar = getActionBar
     actionBar.setDisplayHomeAsUpEnabled(true)
     actionBar.setHomeButtonEnabled(true)
+    
   }
   
   override def onPostCreate(savedInstanceState: Bundle) = {

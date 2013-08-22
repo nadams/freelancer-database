@@ -21,7 +21,7 @@ object StarSystemTable extends TableHelper {
     	);
     """
     		
-  def apply = 
+  def apply() = 
     registerRevision(new TableRevision {
       val revisionNumber = 1
       def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)

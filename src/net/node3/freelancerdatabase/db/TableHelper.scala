@@ -1,7 +1,5 @@
 package net.node3.freelancerdatabase.db
 
-import scala.collection.Iterator
-
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
 
@@ -15,7 +13,7 @@ abstract class TableHelper {
       case None => Unit
       case Some(tuple) => {
         tuple._2.applyRevision(database)
-        onUpgrade(database, tuple._1, DatabaseHelper.databaseVersion)
+        onUpgrade(database, tuple._1, DatabaseInfo.databaseVersion)
       }
     }
   }
@@ -45,5 +43,7 @@ abstract class TableHelper {
     }
     
     revisions.put(revisionNumber, revision)
+    
+    this
   }
 }

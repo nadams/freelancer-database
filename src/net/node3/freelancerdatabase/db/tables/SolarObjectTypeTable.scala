@@ -17,8 +17,9 @@ object SolarObjectTypeTable extends TableHelper {
     	);
     """
     		
-  def apply = registerRevision(new TableRevision {
-    val revisionNumber = 1
-    def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)
-  })
+  def apply() = 
+    registerRevision(new TableRevision {
+      val revisionNumber = 1
+      def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)
+    })
 }

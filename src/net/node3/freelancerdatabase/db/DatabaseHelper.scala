@@ -10,29 +10,32 @@ import net.node3.freelancerdatabase.db.tables.SolarObjectTable
 import net.node3.freelancerdatabase.db.tables.SystemConnectionTable
 
 class DatabaseHelper(val context: Context)
-  extends SQLiteOpenHelper(context, DatabaseHelper.databaseName, null, DatabaseHelper.databaseVersion) {
+  extends SQLiteOpenHelper(context, DatabaseInfo.databaseName, null, DatabaseInfo.databaseVersion) {
   
   private val tables = List(
-    SectorTable,
-    SolarObjectTypeTable,
-    StarSystemTable,
-    SolarObjectTable,
-    SystemConnectionTable
+    SectorTable(),
+    SolarObjectTypeTable(),
+    StarSystemTable(),
+    SolarObjectTable(),
+    SystemConnectionTable()
   )
   
-  override def onCreate(db: SQLiteDatabase) = {
-    if (!db.isReadOnly()) {
-      db.execSQL("PRAGMA foreign_keys=ON;");
-    }
-    
-    tables.foreach(table => table.onCreate(db))
+  override def onOpen(db: SQLiteDatabase) = {
+	  super.onOpen(db)
+	  
+	  if (!db.isReadOnly()) {
+		  db.execSQL("PRAGMA foreign_keys=ON;");
+	  }
   }
+  
+  override def onCreate(db: SQLiteDatabase) = 
+    tables.foreach(table => table.onCreate(db))
 
   override def onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) =
     tables.foreach(table => table.onUpgrade(db, oldVersion, newVersion))
 }
 
-object DatabaseHelper {
+object DatabaseInfo {
   val databaseName = "freelancer.db"
   val databaseVersion = 1
 }

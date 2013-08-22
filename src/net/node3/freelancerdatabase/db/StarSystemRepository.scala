@@ -20,9 +20,7 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
   def systemRepository(context: Context) = new StarSystemRepositoryImpl(context)
   
   class StarSystemRepositoryImpl(val context: Context) extends StarSystemRepository {
-    val databaseHelper = new DatabaseHelper(context)
-    val databaseReadable = databaseHelper.getReadableDatabase
-    val databaseWritable = databaseHelper.getWritableDatabase
+    val database = new DatabaseHelper(context)
     
     def getAll = {
       val sql = 
@@ -31,10 +29,10 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
         	FROM ${StarSystemTable.tableName}
         """
       
-      val cursor = databaseReadable.rawQuery(sql, Array())
+      val cursor = database.getReadableDatabase.rawQuery(sql, Array())
       
       cursor.map(readStarSystem).toSeq
-    } 
+    }
     
     def getById(id: Int) = {
       val sql = 
@@ -44,7 +42,7 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
       		WHERE ${StarSystemTable.id} = ?
         """
       
-      val cursor = databaseReadable.rawQuery(sql, Array(id.toString))
+      val cursor = database.getReadableDatabase.rawQuery(sql, Array(id.toString))
       
       cursor.moveToFirst match {
         case true => Some(readStarSystem(cursor))
