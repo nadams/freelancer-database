@@ -13,7 +13,7 @@ class DatabaseHelper(val context: Context)
   extends SQLiteOpenHelper(context, DatabaseInfo.databaseName, null, DatabaseInfo.databaseVersion) {
   
   private val tables = List(
-    SectorTable(),
+    SectorTable(context),
     SolarObjectTypeTable(),
     StarSystemTable(),
     SolarObjectTable(),

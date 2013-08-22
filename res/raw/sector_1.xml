@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sectors>
+	<sector>
+	    <name>sirius</name>
+    </sector>
+    <sector>
+	    <name>altair</name>
+    </sector>
+    <sector>
+	    <name>inner_core</name>
+    </sector>
+    <sector>
+	    <name>canis</name>
+    </sector>
+</sectors>

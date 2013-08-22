@@ -1,10 +1,14 @@
 package net.node3.freelancerdatabase.db.tables
 
-import android.content.ContentValues
+import scala.io.Source
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import net.node3.freelancerdatabase.R
 import net.node3.freelancerdatabase.db.TableHelper
 import net.node3.freelancerdatabase.db.TableRevision
-import scala.collection.immutable.List
+import scala.xml.XML
+
+case class SectorTable(name: String)
 
 object SectorTable extends TableHelper {
   val tableName = "sector"
@@ -19,26 +23,20 @@ object SectorTable extends TableHelper {
   	  )
     """
   		  
-  def apply() = {
+  def apply(context: Context) = {
     registerRevision(new TableRevision {
       val revisionNumber = 1
-	  val sectors = List[ContentValues](
-	    contentValue(("name", "sirius")),
-	    contentValue(("name", "altair")),
-	    contentValue(("name", "inner_core")),
-	    contentValue(("name", "canis"))
-	  )
 	  
       def applyRevision(database: SQLiteDatabase) = {
         database.execSQL(sql)
-        sectors.foreach(sector => database.insert(tableName, null, sector))
+        
+        val source = Source.fromInputStream(context.getResources.openRawResource(R.raw.sector_1), "UTF-8")
+        val xml = XML.loadString(source.mkString)
+        
+        (xml \ "sector" \ "name").foreach { element => 
+          database.insert(tableName, null, (element.label, element.text))
+        }
       }
     })
-  }
-  
-  def contentValue(value: Pair[String, String]) = {
-    val contentValue = new ContentValues
-    contentValue.put(value._1, value._2)
-    contentValue
   }
 }
