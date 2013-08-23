@@ -25,9 +25,7 @@ object SystemConnectionTable extends TableHelper {
     		$from_system INTEGER NOT NULL,
     		$to_system INTEGER NOT NULL,
     		$type_id INTEGER NOT NULL,
-    		
-    		CONSTRAINT $pk_system_connection
-    			PRIMARY KEY($from_system, $to_system, $type_id),
+    		$object_id INTEGER NOT NULL,
     			
     		CONSTRAINT $fk_system_connection_from
     			FOREIGN KEY($from_system)
@@ -47,11 +45,17 @@ object SystemConnectionTable extends TableHelper {
     	);
     """
     			
+  lazy val index =
+    f"""
+    	CREATE UNIQUE INDEX ix_${tableName}_primary ON $tableName($from_system, $to_system, $type_id);
+    """
+    			
   def apply(context: Context) = 
     registerRevision(new TableRevision {
       val revisionNumber = 1
       def applyRevision(database: SQLiteDatabase) = {
         database.execSQL(sql)
+        database.execSQL(index)
         
         val xml = getXml(R.raw.system_connection_1, context)
         (xml \ "system_connection") foreach { element =>
