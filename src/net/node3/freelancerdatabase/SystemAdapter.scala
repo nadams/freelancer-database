@@ -5,14 +5,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.widget.BaseAdapter
 import android.widget.TextView
+import net.node3.freelancerdatabase.db.StarSystemRepository
 import net.node3.freelancerdatabase.entities.StarSystem
 
-class SystemAdapter(val activity: Activity, val layout: Int, val systems: Seq[StarSystem]) 
-  extends ArrayAdapter[StarSystem](activity, layout, systems.sortBy(system => system.name).toArray) {
-
+class SystemAdapter(val activity: Activity, val layout: Int, val systemRepository: StarSystemRepository) extends BaseAdapter {
+  val viewModels = systemRepository.getAll.map(system => new StarSystemModel(system, activity)).sortBy(system => system.name)
   
+  override def getCount = viewModels.size
+  override def getItemId(position: Int) : Long = position
+  override def getItem(position: Int) = viewModels(position)
   
   override def getView(position: Int, convertView: View, parent: ViewGroup) = {
     var view = convertView
@@ -36,4 +39,14 @@ class SystemAdapter(val activity: Activity, val layout: Int, val systems: Seq[St
   }
   
   case class ViewHolder(name: TextView)
+}
+
+class StarSystemModel(val starSystem: StarSystem, val context: Context) {
+  def name : String = {
+    val resources = context.getResources
+    
+    val resId = resources.getIdentifier(starSystem.name, "string", context.getPackageName)
+    
+    resources.getString(resId)
+  }
 }

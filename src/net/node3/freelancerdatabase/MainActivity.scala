@@ -26,7 +26,7 @@ class MainActivity extends Activity {
     
     setContentView(R.layout.activity_main)
     
-    navList.setAdapter(new SystemAdapter(this, R.id.main_nav_list, systemRepository.getAll))
+    navList.setAdapter(new SystemAdapter(this, R.id.main_nav_list, systemRepository))
     navList.onItemClick { (parent, view, position, id) => Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show }
     navLayout.setDrawerListener(drawerToggle)
     

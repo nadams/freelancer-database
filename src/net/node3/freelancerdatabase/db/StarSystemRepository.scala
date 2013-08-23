@@ -8,12 +8,12 @@ import net.node3.freelancerdatabase.entities.StarSystem
 import android.database.Cursor
 
 trait StarSystemRepositoryComponent {
-  def systemRepository(context: Context) : StarSystemRepository
-  
-  trait StarSystemRepository {
-    def getAll : Seq[StarSystem]
-    def getById(id: Int) : Option[StarSystem]
-  }
+  def systemRepository(context: Context) : StarSystemRepository  
+}
+
+trait StarSystemRepository {
+  def getAll: Seq[StarSystem]
+  def getById(id: Int): Option[StarSystem]
 }
 
 trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
