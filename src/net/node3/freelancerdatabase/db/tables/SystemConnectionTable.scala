@@ -11,11 +11,13 @@ object SystemConnectionTable extends TableHelper {
   val from_system = "from_system"
   val to_system = "to_system"
   val type_id = "type_id"
+  val object_id = "object_id"
     
   val pk_system_connection = "pk_system_connection"
   val fk_system_connection_from = "fk_system_connection_from"
   val fk_system_connection_to = "fk_system_connection_to"
   val fk_system_connection_solar_object = "fk_system_connection_solar_object"
+  val fk_system_connection_object_id = "fk_system_connection_object_id"
     
   lazy val sql = 
     f"""
@@ -37,6 +39,10 @@ object SystemConnectionTable extends TableHelper {
     			
     		CONSTRAINT $fk_system_connection_solar_object
     			FOREIGN KEY($type_id)
+    			REFERENCES ${SolarObjectTable.tableName}(${SolarObjectTable.id}),
+    			
+    		CONSTRAINT $fk_system_connection_object_id
+    			FOREIGN KEY($object_id)
     			REFERENCES ${SolarObjectTable.tableName}(${SolarObjectTable.id})
     	);
     """
@@ -52,8 +58,9 @@ object SystemConnectionTable extends TableHelper {
           val fromSystemValue = (element \ "@from_system").text
           val toSystemValue = (element \ "@to_system").text
           val typeIdValue = (element \ "@type_id").text
+          val objectIdValue = (element \ "@object_id").text
           
-          database.insert(tableName, null, (from_system, fromSystemValue) ~ (to_system, toSystemValue) ~ (type_id, typeIdValue))
+          database.insert(tableName, null, (from_system, fromSystemValue) ~ (to_system, toSystemValue) ~ (type_id, typeIdValue) ~ (object_id, objectIdValue))
         }
       }
     })
