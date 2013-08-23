@@ -19,43 +19,43 @@ object SystemConnectionTable extends TableHelper {
   val fk_system_connection_solar_object = "fk_system_connection_solar_object"
   val fk_system_connection_object_id = "fk_system_connection_object_id"
     
-  lazy val sql = 
-    f"""
-    	CREATE TABLE $tableName (
-    		$from_system INTEGER NOT NULL,
-    		$to_system INTEGER NOT NULL,
-    		$type_id INTEGER NOT NULL,
-    		$object_id INTEGER NOT NULL,
+  lazy val createTable = 
+  f"""
+  	CREATE TABLE $tableName (
+  		$from_system INTEGER NOT NULL,
+  		$to_system INTEGER NOT NULL,
+  		$type_id INTEGER NOT NULL,
+  		$object_id INTEGER NOT NULL,
+  			
+  		CONSTRAINT $fk_system_connection_from
+  			FOREIGN KEY($from_system)
+  			REFERENCES ${StarSystemTable.tableName}(${StarSystemTable.id}),
+  			
+  		CONSTRAINT $fk_system_connection_to
+  			FOREIGN KEY($to_system)
+  			REFERENCES ${StarSystemTable.tableName}(${StarSystemTable.id}),
+  			
+  		CONSTRAINT $fk_system_connection_solar_object
+  			FOREIGN KEY($type_id)
+  			REFERENCES ${SolarObjectTable.tableName}(${SolarObjectTable.id}),
+  			
+  		CONSTRAINT $fk_system_connection_object_id
+  			FOREIGN KEY($object_id)
+  			REFERENCES ${SolarObjectTable.tableName}(${SolarObjectTable.id})
+  	);
+  """
     			
-    		CONSTRAINT $fk_system_connection_from
-    			FOREIGN KEY($from_system)
-    			REFERENCES ${StarSystemTable.tableName}(${StarSystemTable.id}),
-    			
-    		CONSTRAINT $fk_system_connection_to
-    			FOREIGN KEY($to_system)
-    			REFERENCES ${StarSystemTable.tableName}(${StarSystemTable.id}),
-    			
-    		CONSTRAINT $fk_system_connection_solar_object
-    			FOREIGN KEY($type_id)
-    			REFERENCES ${SolarObjectTable.tableName}(${SolarObjectTable.id}),
-    			
-    		CONSTRAINT $fk_system_connection_object_id
-    			FOREIGN KEY($object_id)
-    			REFERENCES ${SolarObjectTable.tableName}(${SolarObjectTable.id})
-    	);
-    """
-    			
-  lazy val index =
-    f"""
-    	CREATE UNIQUE INDEX ix_${tableName}_primary ON $tableName($from_system, $to_system, $type_id);
-    """
+  lazy val createIndex =
+  f"""
+  	CREATE UNIQUE INDEX ix_${tableName}_primary ON $tableName($from_system, $to_system, $type_id);
+  """
     			
   def apply(context: Context) = 
     registerRevision(new TableRevision {
       val revisionNumber = 1
       def applyRevision(database: SQLiteDatabase) = {
-        database.execSQL(sql)
-        database.execSQL(index)
+        database.execSQL(createTable)
+        database.execSQL(createIndex)
         
         val xml = getXml(R.raw.system_connection_1, context)
         (xml \ "system_connection") foreach { element =>
