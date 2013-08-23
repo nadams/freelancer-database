@@ -14,6 +14,7 @@ object SectorTable extends TableHelper {
   val tableName = "sector"
   val id = "id"
   val name = "name"
+  val logTag = tableName
 
   lazy val sql =
     f""" 
@@ -30,11 +31,13 @@ object SectorTable extends TableHelper {
       def applyRevision(database: SQLiteDatabase) = {
         database.execSQL(sql)
         
-        val source = Source.fromInputStream(context.getResources.openRawResource(R.raw.sector_1), "UTF-8")
-        val xml = XML.loadString(source.mkString)
+        val xml = getXml(R.raw.sector_1, context)
         
-        (xml \ "sector" \ "name").foreach { element => 
-          database.insert(tableName, null, (element.label, element.text))
+        (xml \ "sector").foreach { element =>
+          val idValue = (element \ "@id").text
+          val nameValue = (element \ "@name").text
+          
+          database.insert(tableName, null, (id, idValue) ~ (name, nameValue))
         }
       }
     })

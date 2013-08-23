@@ -2,7 +2,7 @@ package net.node3.freelancerdatabase.db.tables
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-
+import net.node3.freelancerdatabase.R
 import net.node3.freelancerdatabase.db.TableHelper
 import net.node3.freelancerdatabase.db.TableRevision
 
@@ -29,6 +29,19 @@ object StarSystemTable extends TableHelper {
   def apply(context: Context) = 
     registerRevision(new TableRevision {
       val revisionNumber = 1
-      def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)
+      def applyRevision(database: SQLiteDatabase) = {
+        database.execSQL(sql)
+        
+        val xml = getXml(R.raw.star_system_1, context)
+        (xml \ "star_system").foreach { element =>
+          val idValue = (element \ "@id").text
+          val nameValue = (element \ "@name").text
+          val xValue = (element \ "@x").text
+          val yValue = (element \ "@y").text
+          val sectorIdValue = (element \ "@sector_id").text
+          
+          database.insert(tableName, null, (id, idValue) ~ (name, nameValue) ~ (x, xValue) ~ (y, yValue) ~ (sector_id, sectorIdValue))
+        }
+      }
     })
 }
