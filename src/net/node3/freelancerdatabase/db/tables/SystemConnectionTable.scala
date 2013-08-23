@@ -2,16 +2,15 @@ package net.node3.freelancerdatabase.db.tables
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-
 import net.node3.freelancerdatabase.db.TableHelper
 import net.node3.freelancerdatabase.db.TableRevision
+import net.node3.freelancerdatabase.R
 
 object SystemConnectionTable extends TableHelper {
   val tableName = "system_connection"
   val from_system = "from_system"
   val to_system = "to_system"
   val type_id = "type_id"
-  val is_bidirectional = "is_bidirectional"
     
   val pk_system_connection = "pk_system_connection"
   val fk_system_connection_from = "fk_system_connection_from"
@@ -24,7 +23,6 @@ object SystemConnectionTable extends TableHelper {
     		$from_system INTEGER NOT NULL,
     		$to_system INTEGER NOT NULL,
     		$type_id INTEGER NOT NULL,
-    		$is_bidirectional BOOLEAN NOT NULL,
     		
     		CONSTRAINT $pk_system_connection
     			PRIMARY KEY($from_system, $to_system, $type_id),
@@ -46,6 +44,17 @@ object SystemConnectionTable extends TableHelper {
   def apply(context: Context) = 
     registerRevision(new TableRevision {
       val revisionNumber = 1
-      def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)
+      def applyRevision(database: SQLiteDatabase) = {
+        database.execSQL(sql)
+        
+        val xml = getXml(R.raw.system_connection_1, context)
+        (xml \ "system_connection") foreach { element =>
+          val fromSystemValue = (element \ "@from_system").text
+          val toSystemValue = (element \ "@to_system").text
+          val typeIdValue = (element \ "@type_id").text
+          
+          database.insert(tableName, null, (from_system, fromSystemValue) ~ (to_system, toSystemValue) ~ (type_id, typeIdValue))
+        }
+      }
     })
 }
