@@ -11,11 +11,11 @@ import net.node3.freelancerdatabase.db.StarSystemRepository
 import net.node3.freelancerdatabase.entities.StarSystem
 
 class SystemAdapter(val activity: Activity, val layout: Int, val systemRepository: StarSystemRepository) extends BaseAdapter {
-  val viewModels = systemRepository.getAll.map(system => new StarSystemModel(system, activity)).sortBy(system => system.name)
+  var filteredModels = filterSystems("")
   
-  override def getCount = viewModels.size
+  override def getCount = filteredModels.size
   override def getItemId(position: Int) : Long = position
-  override def getItem(position: Int) = viewModels(position)
+  override def getItem(position: Int) = filteredModels(position)
   
   override def getView(position: Int, convertView: View, parent: ViewGroup) = {
     var view = convertView
@@ -38,6 +38,18 @@ class SystemAdapter(val activity: Activity, val layout: Int, val systemRepositor
     view
   }
   
+  def applyFilter(name: String) = {
+    filteredModels = filterSystems(name)
+    
+    notifyDataSetChanged
+  }
+  
+  private def filterSystems(filter: String) = systemRepository.getAll map { system => 
+      new StarSystemModel(system, activity) 
+    } filter { system => 
+      system.name.matches(f"(?i).*$filter.*")
+    } sortBy(system => system.name)
+      
   case class ViewHolder(name: TextView)
 }
 

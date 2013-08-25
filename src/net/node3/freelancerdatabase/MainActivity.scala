@@ -7,7 +7,6 @@ import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.widget.DrawerLayout
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
@@ -19,20 +18,27 @@ class MainActivity extends Activity {
   lazy val navLayout = findViewById(R.id.main_drawer_layout).asInstanceOf[DrawerLayout]
   lazy val navList = findViewById(R.id.main_nav_list).asInstanceOf[ListView]
   lazy val searchBox = findViewById(R.id.main_system_filter).asInstanceOf[EditText]
+  lazy val filterButton = findViewById(R.id.main_system_filter_button)
   lazy val drawerToggle = new ActionBarDrawerToggle(this, navLayout, R.drawable.ic_drawer, R.string.main_drawer_open, R.string.main_drawer_close)
+  lazy val adapter = new SystemAdapter(this, R.id.main_nav_list, systemRepository)
   
   override def onCreate(savedInstanceState: Bundle) = {
     super.onCreate(savedInstanceState)
     
     setContentView(R.layout.activity_main)
     
-    navList.setAdapter(new SystemAdapter(this, R.id.main_nav_list, systemRepository))
+    navList.setAdapter(adapter)
     navList.onItemClick { (parent, view, position, id) => Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show }
     navLayout.setDrawerListener(drawerToggle)
     
     val actionBar = getActionBar
     actionBar.setDisplayHomeAsUpEnabled(true)
     actionBar.setHomeButtonEnabled(true)
+    
+    filterButton.onClick { view => 
+      val text = searchBox.getText
+      adapter.applyFilter(text.toString)
+    }
   }
   
   override def onPostCreate(savedInstanceState: Bundle) = {
