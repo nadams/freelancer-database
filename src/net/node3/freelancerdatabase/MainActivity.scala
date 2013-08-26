@@ -29,7 +29,7 @@ class MainActivity extends Activity {
     super.onCreate(savedInstanceState)
     
     setContentView(R.layout.activity_main)
-    
+
     navList.setAdapter(adapter)
     navList.onItemClick { (parent, view, position, id) => Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show }
     navLayout.setDrawerListener(drawerToggle)
@@ -38,10 +38,23 @@ class MainActivity extends Activity {
     actionBar.setDisplayHomeAsUpEnabled(true)
     actionBar.setHomeButtonEnabled(true)
     
-    def search = adapter.applyFilter(searchBox.getText.toString)
+    def search() = adapter.applyFilter(searchBox.getText.toString)
     
     filterButton.onClick { view => search }
     searchBox.onEditorAction { (textView: TextView, actionId: Int, event: KeyEvent) => search }
+    
+    if(savedInstanceState != null) {
+      val filter = savedInstanceState.getString(SystemAdapter.filterKey)
+      if(filter != null) {
+        adapter.applyFilter(filter)
+      }
+    }
+  }
+  
+  override def onSaveInstanceState(outState: Bundle) = {
+    super.onSaveInstanceState(outState)
+    
+    outState.putString(SystemAdapter.filterKey, adapter.filter)
   }
   
   override def onPostCreate(savedInstanceState: Bundle) = {

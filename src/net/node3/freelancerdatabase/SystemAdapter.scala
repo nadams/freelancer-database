@@ -11,7 +11,7 @@ import net.node3.freelancerdatabase.db.StarSystemRepository
 import net.node3.freelancerdatabase.entities.StarSystem
 
 class SystemAdapter(val activity: Activity, val layout: Int, val systemRepository: StarSystemRepository) extends BaseAdapter {
-  private var filter = ""
+  private var systemFilter = ""
   private var filteredModels = filteredSystems
   
   override def getCount = filteredModels.size
@@ -40,21 +40,27 @@ class SystemAdapter(val activity: Activity, val layout: Int, val systemRepositor
   }
   
   def applyFilter(name: String) = {
-    filter = name
+    systemFilter = name
     filteredModels = filteredSystems
     
     notifyDataSetChanged
     true
   }
   
+  def filter = systemFilter
+  
   private def filteredSystems =
     systemRepository.getAll map { system => 
       new StarSystemModel(system, activity) 
     } filter { system => 
-      system.name.matches(f"(?i).*$filter.*")
+      system.name.matches(f"(?i).*$systemFilter.*")
     } sortBy(system => system.name)
   
   case class ViewHolder(name: TextView)
+}
+
+object SystemAdapter {
+  lazy val filterKey = "filterKey"
 }
 
 class StarSystemModel(val starSystem: StarSystem, val context: Context) {
