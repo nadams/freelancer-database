@@ -1,11 +1,9 @@
 package net.node3.freelancerdatabase.db
 
-import net.node3.freelancerdatabase.entities.StarSystem
 import android.content.Context
-import net.node3.freelancerdatabase.db.tables.StarSystemTable
+import net.node3.freelancerdatabase.db.tables._
+
 import net.node3.freelancerdatabase.entities.StarSystem
-import net.node3.freelancerdatabase.entities.StarSystem
-import android.database.Cursor
 
 trait StarSystemRepositoryComponent {
   def systemRepository(context: Context) : StarSystemRepository  
@@ -14,7 +12,7 @@ trait StarSystemRepositoryComponent {
 trait StarSystemRepository {
   def getAll: Seq[StarSystem]
   def getById(id: Int): Option[StarSystem]
-  def add(starSystem: StarSystem)
+  def add(starSystem: StarSystem): Option[Long]
 }
 
 trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
@@ -32,13 +30,13 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
       
       val cursor = database.getReadableDatabase.rawQuery(sql, Array())
       
-      cursor.map(readStarSystem).toSeq
+      cursor.map(StarSystem(_)).toSeq
     }
     
     def getById(id: Int) = {
       val sql = 
         f"""
-    		SELECT * 
+    		  SELECT * 
         	FROM ${StarSystemTable.tableName}
       		WHERE ${StarSystemTable.id} = ?
         """
@@ -46,14 +44,13 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
       val cursor = database.getReadableDatabase.rawQuery(sql, Array(id.toString))
       
       cursor.moveToFirst match {
-        case true => Some(readStarSystem(cursor))
+        case true => Some(StarSystem(cursor))
         case false => None
       }
     }
     
-    def add(starSystem: StarSystem) = ???
-    
-    private def readStarSystem(cursor: Cursor) = StarSystem(cursor.getInt(0), cursor.getString(1), cursor.getInt(2))
+    def add(starSystem: StarSystem) = 
+      Some(database.getWritableDatabase.insert(StarSystemTable.tableName, null, StarSystem.unapply(starSystem)))
   }
 }
 
