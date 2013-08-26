@@ -9,8 +9,8 @@
     <system_connection from_system="1" to_system="6" type_id="4" object_id="1" /> <!-- New York ==> Alaska -->
     <system_connection from_system="6" to_system="1" type_id="4" object_id="1" /> <!-- Alaska ==> New York -->
     
-    <system_connection from_system="1" to_system="6" type_id="4" object_id="1" /> <!-- New York ==> Alaska -->
-    <system_connection from_system="6" to_system="1" type_id="4" object_id="1" /> <!-- Alaska ==> New York -->
+    <system_connection from_system="1" to_system="6" type_id="5" object_id="1" /> <!-- New York ==> Alaska -->
+    <system_connection from_system="6" to_system="1" type_id="5" object_id="1" /> <!-- Alaska ==> New York -->
     
     <system_connection from_system="1" to_system="46" type_id="4" object_id="1" /> <!-- New York ==> California -->
     <system_connection from_system="46" to_system="1" type_id="4" object_id="1" /> <!-- California ==> New York -->
