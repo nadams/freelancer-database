@@ -1,9 +1,9 @@
 package net.node3.freelancerdatabase
 
-import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.ActionBarDrawerToggle
+import android.support.v4.app.FragmentActivity
 import android.support.v4.widget.DrawerLayout
 import android.view.KeyEvent
 import android.view.Menu
@@ -14,7 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import net.node3.freelancerdatabase.db.StarSystemRegistry
 
-class MainActivity extends Activity {
+class MainActivity extends FragmentActivity {
   lazy val systemRepository = StarSystemRegistry.systemRepository(this)
   
   lazy val navLayout = findViewById(R.id.main_drawer_layout).asInstanceOf[DrawerLayout]
@@ -30,7 +30,11 @@ class MainActivity extends Activity {
     setContentView(R.layout.activity_main)
 
     navList.setAdapter(adapter)
-    navList.onItemClick { (parent, view, position, id) => Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show }
+    navList.onItemClick { (parent, view, position, id) => 
+      val system = adapter.getItem(position)
+      Toast.makeText(this, system.starSystem.toString, Toast.LENGTH_LONG).show
+    }
+    
     navLayout.setDrawerListener(drawerToggle)
     
     val actionBar = getActionBar

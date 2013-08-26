@@ -4,7 +4,9 @@ import android.database.Cursor
 import android.content.ContentValues
 import net.node3.freelancerdatabase.db.tables._
 
-class StarSystem(val id: Int, val name: String, val sectorId: Int)
+class StarSystem(val id: Int, val name: String, val sectorId: Int) {
+  override def toString() = f"id: $id, name: $name, sectorId: $sectorId"
+}
 
 object StarSystem {
   def apply(id: Int, name: String, sectorId: Int) = new StarSystem(id, name, sectorId)
