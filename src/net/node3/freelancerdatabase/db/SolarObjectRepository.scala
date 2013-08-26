@@ -1,10 +1,11 @@
 package net.node3.freelancerdatabase.db
 
 import android.content.Context
+import android.database.Cursor
+import net.node3.freelancerdatabase.db._
 import net.node3.freelancerdatabase.entities.SolarObject
 import net.node3.freelancerdatabase.db.tables.SolarObjectTable
 import net.node3.freelancerdatabase.db.tables.SolarObjectTypeTable
-import android.database.Cursor
 import net.node3.freelancerdatabase.entities.SolarObjectType
 
 trait SolarObjectRepositoryComponent {
@@ -43,7 +44,25 @@ trait SolarObjectRepositoryComponentImpl extends SolarObjectRepositoryComponent 
       SolarObject(database.getReadableDatabase.rawQuery(sql, Array(id.toString)))
     }
 
-    def getAllBySystemId(id: Int) = ???
+    def getAllBySystemId(id: Int) = {
+      val sql = 
+        f"""
+        	SELECT 
+        		so.${SolarObjectTable.id},
+        		so.${SolarObjectTable.name},
+        		so.${SolarObjectTable.x},
+        		so.${SolarObjectTable.y},
+        		so.${SolarObjectTable.solar_object_type_id},
+        		sat.${SolarObjectTypeTable.name}
+        	FROM ${SolarObjectTable.tableName} AS so
+      			INNER JOIN ${SolarObjectTypeTable.tableName} AS sat ON so.${SolarObjectTable.solar_object_type_id} = sat.${SolarObjectTypeTable.id} 
+      		WHERE so.${SolarObjectTable.star_system_id} = ?
+        """
+      		
+      	val cursor = database.getReadableDatabase.rawQuery(sql, Array(id.toString))
+      	cursor.map(SolarObject.apply(_).get).toSeq
+    }
+    
     def add(solarObject: SolarObject) = ???
 
     def update(id: Int, newSolarObject: SolarObject) =

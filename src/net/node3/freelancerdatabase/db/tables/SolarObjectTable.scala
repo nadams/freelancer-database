@@ -1,10 +1,10 @@
 package net.node3.freelancerdatabase.db.tables
 
 import android.content.Context
-
 import android.database.sqlite.SQLiteDatabase
 import net.node3.freelancerdatabase.db.TableHelper
 import net.node3.freelancerdatabase.db.TableRevision
+import net.node3.freelancerdatabase.R
 
 object SolarObjectTable extends TableHelper {
   val tableName = "solar_object"
@@ -40,6 +40,23 @@ object SolarObjectTable extends TableHelper {
   def apply(context: Context) =
     registerRevision(new TableRevision {
       val revisionNumber = 1
-      def applyRevision(database: SQLiteDatabase) = database.execSQL(sql)
+      def applyRevision(database: SQLiteDatabase) = {
+        database.execSQL(sql)
+        
+        val xml = getXml(R.raw.solar_object_1, context)
+        
+        (xml \ "solar_object") foreach { element =>
+          database.insert(
+            tableName, 
+            null, 
+            (id, (element \ "@id").text) ~ 
+            (name, (element \ "@name").text) ~
+            (x, (element \ "@x").text) ~
+            (y, (element \ "@y").text) ~
+            (solar_object_type_id, (element \ "@solar_object_type_id").text) ~
+            (star_system_id, (element \ "@star_system_id").text)
+          )
+        }
+      }
     })
 }
