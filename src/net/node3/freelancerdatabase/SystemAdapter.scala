@@ -44,15 +44,15 @@ class SystemAdapter(val activity: Activity, val layout: Int, val systemRepositor
     filteredModels = filteredSystems
     
     notifyDataSetChanged
+    true
   }
   
-  private def filteredSystems = {
+  private def filteredSystems =
     systemRepository.getAll map { system => 
       new StarSystemModel(system, activity) 
     } filter { system => 
       system.name.matches(f"(?i).*$filter.*")
     } sortBy(system => system.name)
-  }
   
   case class ViewHolder(name: TextView)
 }

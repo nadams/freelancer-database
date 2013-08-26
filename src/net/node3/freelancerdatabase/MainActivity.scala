@@ -11,6 +11,9 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import net.node3.freelancerdatabase.db.StarSystemRegistry
+import android.widget.TextView
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 
 class MainActivity extends Activity {
   lazy val systemRepository = StarSystemRegistry.systemRepository(this)
@@ -35,10 +38,10 @@ class MainActivity extends Activity {
     actionBar.setDisplayHomeAsUpEnabled(true)
     actionBar.setHomeButtonEnabled(true)
     
-    filterButton.onClick { view => 
-      val text = searchBox.getText
-      adapter.applyFilter(text.toString)
-    }
+    def search = adapter.applyFilter(searchBox.getText.toString)
+    
+    filterButton.onClick { view => search }
+    searchBox.onEditorAction { (textView: TextView, actionId: Int, event: KeyEvent) => search }
   }
   
   override def onPostCreate(savedInstanceState: Bundle) = {

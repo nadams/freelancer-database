@@ -7,6 +7,7 @@
     <string name="main_system_filter_button">Find</string>
     <string name="main_drawer_open">Open</string>
     <string name="main_drawer_close">Close</string>
+    <string name="main_systems_filter">Filter Systems</string>
 
     <!-- Database Values to Strings -->
     <string name="sirius">Sirius</string>
