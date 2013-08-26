@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<solar_object_types>
+    <solar_object_type id="1" name="star" />
+    <solar_object_type id="2" name="planet" />
+    <solar_object_type id="3" name="station" />
+    <solar_object_type id="4" name="jump_gate" />
+    <solar_object_type id="5" name="jump_hole" />
+    <solar_object_type id="6" name="wreck" />
+    <solar_object_type id="7" name="tradelane" />
+    <solar_object_type id="8" name="buoy" />
+    <solar_object_type id="9" name="nebula" />
+    <solar_object_type id="10" name="rock_field" />
+    <solar_object_type id="11" name="mine_field" />
+    <solar_object_type id="12" name="radiation_zone" />
+</solar_object_types>

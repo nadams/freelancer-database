@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Freelancer Database</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    
-	<string name="main_system_filter_button">Find</string>
-	<string name="main_drawer_open">Open</string>
-	<string name="main_drawer_close">Close</string>
+    <string name="main_system_filter_button">Find</string>
+    <string name="main_drawer_open">Open</string>
+    <string name="main_drawer_close">Close</string>
+    <string name="main_systems_filter">Filter Systems</string>
+
+    <!-- Database Values to Strings -->
+    <string name="sirius">Sirius</string>
+    <string name="altair">Altair</string>
+    <string name="inner_core">Inner Core</string>
+    <string name="canis">Canis</string>
+    <string name="new_york">Kew York</string>
+    <string name="colorado">Colorado</string>
+    <string name="kepler">Kepler</string>
+    <string name="galileo">Galileo</string>
+    <string name="shikoku">Shikoku</string>
+    <string name="alaska">Alaska</string>
+    <string name="kyushu">Kyushu</string>
+    <string name="new_tokyo">New Tokyo</string>
+    <string name="hokkaido">Hokkaido</string>
+    <string name="chugoku">Chugoku</string>
+    <string name="tohoku">Tohoku</string>
+    <string name="honshu">Honshu</string>
+    <string name="tau_29">Tau-29</string>
+    <string name="tau_31">Tau-31</string>
+    <string name="tau_23">Tau-23</string>
+    <string name="tau_37">Tau-37</string>
+    <string name="omicron_alpha">Omicron Alpha</string>
+    <string name="omicron_beta">Omicron Beta</string>
+    <string name="omicron_gamma">Omicron Gamma</string>
+    <string name="omicron_theta">Omicron Theta</string>
+    <string name="unknown_1">Unknown 1</string>
+    <string name="unknown_2">Unknown 2</string>
+    <string name="sigma_19">Sigma-19</string>
+    <string name="sigma_17">Sigma-17</string>
+    <string name="sigma_13">Sigma-13</string>
+    <string name="texas">Texas</string>
+    <string name="bering">Bering</string>
+    <string name="hamburg">Hamburg</string>
+    <string name="frankfurt">Frankfurt</string>
+    <string name="new_berlin">New Berlin</string>
+    <string name="stuttgart">Stuttgart</string>
+    <string name="dresden">Dresden</string>
+    <string name="omega_41">Omega-41</string>
+    <string name="omega_5">Omega-5</string>
+    <string name="omega_11">Omega-11</string>
+    <string name="omega_3">Omega-3</string>
+    <string name="omega_7">Omega-7</string>
+    <string name="cambridge">Cambridge</string>
+    <string name="dublin">Dublin</string>
+    <string name="new_london">New London</string>
+    <string name="manchester">Manchester</string>
+    <string name="edinburgh">Edinburgh</string>
+    <string name="leeds">Leeds</string>
+    <string name="magellan">Magellan</string>
+    <string name="cortez">Cortez</string>
+    <string name="california">California</string>
+
 </resources>

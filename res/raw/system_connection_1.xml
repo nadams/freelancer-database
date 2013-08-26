@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<system_connections>
+    <system_connection from_system="1" to_system="2" type_id="4" object_id="1" /> <!-- New York ==> Colorado -->
+    <system_connection from_system="2" to_system="1" type_id="4" object_id="1" /> <!-- Colorado ==> New York -->
+    
+    <system_connection from_system="1" to_system="2" type_id="5" object_id="1" /> <!-- New York ==> Colorado -->
+    <system_connection from_system="2" to_system="1" type_id="5" object_id="1" /> <!-- Colorado ==> New York -->
+    
+    <system_connection from_system="1" to_system="6" type_id="4" object_id="1" /> <!-- New York ==> Alaska -->
+    <system_connection from_system="6" to_system="1" type_id="4" object_id="1" /> <!-- Alaska ==> New York -->
+    
+    <system_connection from_system="1" to_system="6" type_id="4" object_id="1" /> <!-- New York ==> Alaska -->
+    <system_connection from_system="6" to_system="1" type_id="4" object_id="1" /> <!-- Alaska ==> New York -->
+    
+    <system_connection from_system="1" to_system="46" type_id="4" object_id="1" /> <!-- New York ==> California -->
+    <system_connection from_system="46" to_system="1" type_id="4" object_id="1" /> <!-- California ==> New York -->
+    
+    <system_connection from_system="1" to_system="46" type_id="5" object_id="1" /> <!-- New York ==> California -->
+    <system_connection from_system="46" to_system="1" type_id="5" object_id="1" /> <!-- California ==> New York -->
+    
+    <system_connection from_system="1" to_system="26" type_id="4" object_id="1" /> <!-- New York ==> Texas -->
+    <system_connection from_system="26" to_system="1" type_id="4" object_id="1" /> <!-- Texas ==> New York -->
+    
+    <system_connection from_system="1" to_system="26" type_id="5" object_id="1" /> <!-- New York ==> Texas -->
+    <system_connection from_system="26" to_system="1" type_id="5" object_id="1" /> <!-- Texas ==> New York -->
+    
+    <system_connection from_system="1" to_system="44" type_id="4" object_id="1" /> <!-- New York ==> Magellan -->
+    <system_connection from_system="44" to_system="1" type_id="4" object_id="1" /> <!-- Magellan ==> New York -->
+</system_connections>

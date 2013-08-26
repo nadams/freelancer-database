@@ -28,7 +28,9 @@
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_toLeftOf="@+id/main_system_filter_button"
-	            android:inputType="text" />
+	            android:inputType="text" 
+	            android:imeOptions="actionSearch"
+	            android:hint="@string/main_systems_filter" />
 	        
 	        <Button 
 	            android:id="@+id/main_system_filter_button" 
