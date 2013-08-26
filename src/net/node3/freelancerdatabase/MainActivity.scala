@@ -5,15 +5,14 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.widget.DrawerLayout
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import net.node3.freelancerdatabase.db.StarSystemRegistry
-import android.widget.TextView
-import android.view.KeyEvent
-import android.view.inputmethod.EditorInfo
 
 class MainActivity extends Activity {
   lazy val systemRepository = StarSystemRegistry.systemRepository(this)
