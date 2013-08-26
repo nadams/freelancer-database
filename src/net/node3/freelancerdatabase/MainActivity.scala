@@ -13,6 +13,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import net.node3.freelancerdatabase.db.StarSystemRegistry
+import android.support.v4.app.Fragment
 
 class MainActivity extends FragmentActivity {
   lazy val systemRepository = StarSystemRegistry.systemRepository(this)
