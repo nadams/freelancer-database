@@ -13,12 +13,14 @@ package object db {
     def iterator = new Iterator[Cursor] {
       def hasNext = cursor.getCount > 0 && !cursor.isLast
       def next = { 
-        cursor.moveToNext
+        if(!cursor.moveToNext) {
+          cursor.close
+        }
+        
         cursor
       }
     }
   }
-  
   
   implicit def niceCursor(cursor: Cursor) = new ScalaCursor(cursor)
 }
