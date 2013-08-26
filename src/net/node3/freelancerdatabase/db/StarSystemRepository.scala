@@ -14,6 +14,7 @@ trait StarSystemRepositoryComponent {
 trait StarSystemRepository {
   def getAll: Seq[StarSystem]
   def getById(id: Int): Option[StarSystem]
+  def add(starSystem: StarSystem)
 }
 
 trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
@@ -50,7 +51,9 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
       }
     }
     
-    def readStarSystem(cursor: Cursor) = StarSystem(cursor.getInt(0), cursor.getString(1), cursor.getInt(2))
+    def add(starSystem: StarSystem) = ???
+    
+    private def readStarSystem(cursor: Cursor) = StarSystem(cursor.getInt(0), cursor.getString(1), cursor.getInt(2))
   }
 }
 
