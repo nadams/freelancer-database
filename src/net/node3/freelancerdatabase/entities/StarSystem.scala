@@ -4,7 +4,6 @@ import android.database.Cursor
 import net.node3.freelancerdatabase.db.tables._
 
 case class StarSystem(id: Int, name: String, sectorId: Int) {
-  override def toString() = f"id: $id, name: $name, sectorId: $sectorId"
   def toContentValues() =
 	  (StarSystemTable.id, id.toString) ~ (StarSystemTable.name, name) ~ (StarSystemTable.sector_id, sectorId.toString)
 }
