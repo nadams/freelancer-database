@@ -6,31 +6,38 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 public class StarSystemView extends SurfaceView implements SurfaceHolder.Callback {
 	private Paint paint = new Paint();
-	
 	private SolarObject[] solarObjects;
 	private GraphThread thread;
+	private ScaleGestureDetector scaleDetector;
+	private ScaleListener scaleListener;
 
 	public StarSystemView(Context context) {
 		super(context);
-		this.getHolder().addCallback(this);
-		this.paint = this.getDefaultTextPaint();
+		this.init(context);
 	}
 
 	public StarSystemView(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
-		this.getHolder().addCallback(this);
-		this.paint = this.getDefaultTextPaint();
+		this.init(context);
 	}
 
 	public StarSystemView(Context context, AttributeSet attributeSet, int style) {
 		super(context, attributeSet, style);
+		this.init(context);
+	}
+	
+	private void init(Context context) {
 		this.getHolder().addCallback(this);
 		this.paint = this.getDefaultTextPaint();
+		this.scaleListener = new ScaleListener(this);
+		this.scaleDetector = new ScaleGestureDetector(context, this.scaleListener);
 	}
 	
 	private Paint getDefaultTextPaint() {
@@ -71,11 +78,25 @@ public class StarSystemView extends SurfaceView implements SurfaceHolder.Callbac
 
 	@Override
 	protected void onDraw(Canvas canvas) {
+		final float scale = this.scaleListener.getScaleFactor();
+		
+		canvas.save();
+		canvas.scale(scale, scale);
+		
 		canvas.drawColor(Color.argb(255, 34, 34, 34));
 		for(SolarObject solarObject : this.solarObjects) {
 			String name = solarObject.name();
 			canvas.drawText(solarObject.name(), 0, name.length(), solarObject.x(), solarObject.y(), this.paint);
 		}	
+		
+		canvas.restore();
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		this.scaleDetector.onTouchEvent(event);
+		
+		return true;
 	}
 
 	@Override
@@ -90,6 +111,33 @@ public class StarSystemView extends SurfaceView implements SurfaceHolder.Callbac
 
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) { }
+	
+	private static class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+		private final static float MIN_SCALE = 0.1f;
+		private final static float MAX_SCALE = 5.0f;
+		
+		private final SurfaceView view;
+		private float scaleFactor;
+		
+		public ScaleListener(SurfaceView view) {
+			this.view = view;
+			this.scaleFactor = 1.0f;
+		}
+		
+		@Override
+		public boolean onScale(ScaleGestureDetector detector) {
+			this.scaleFactor *= detector.getScaleFactor();
+			
+			this.scaleFactor = Math.max(MIN_SCALE, Math.min(this.scaleFactor, MAX_SCALE));
+			
+			this.view.invalidate();
+			return true;
+		}
+		
+		public float getScaleFactor() {
+			return this.scaleFactor;
+		}
+	}
 	
 	public static class GraphThread extends Thread {
 		private final SurfaceHolder surface;
