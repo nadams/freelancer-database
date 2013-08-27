@@ -36,7 +36,7 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
     def getById(id: Int) = {
       val sql = 
         f"""
-    		  SELECT * 
+    		SELECT * 
         	FROM ${StarSystemTable.tableName}
       		WHERE ${StarSystemTable.id} = ?
         """
@@ -50,7 +50,7 @@ trait StarSystemRepositoryComponentImpl extends StarSystemRepositoryComponent {
     }
     
     def add(starSystem: StarSystem) = 
-      Some(database.getWritableDatabase.insert(StarSystemTable.tableName, null, StarSystem.unapply(starSystem)))
+      Some(database.getWritableDatabase.insert(StarSystemTable.tableName, null, starSystem.toContentValues))
   }
 }
 
