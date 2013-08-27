@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
-	<net.node3.freelancerdatabase.fragments.StarSystemView 
+	<net.node3.freelancerdatabase.StarSystemView 
     	android:id="@+id/system_view"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent" />

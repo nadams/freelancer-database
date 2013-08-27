@@ -16,6 +16,8 @@ import android.view.View
 import android.content.Context
 import net.node3.freelancerdatabase.entities.SolarObject
 import android.widget.FrameLayout
+import android.util.AttributeSet
+import net.node3.freelancerdatabase.StarSystemView
 
 class SystemFragment extends Fragment {
   lazy val solarObjectRepository = SolarObjectRegistry.solarObjectRepository(this.getActivity)
@@ -27,30 +29,6 @@ class SystemFragment extends Fragment {
   override def onViewCreated(view: View, savedInstanceState: Bundle) = {
     super.onViewCreated(view, savedInstanceState)
     
-    systemView.setSolarObjects(solarObjectRepository.getAllBySystemId(1))
+    systemView.setSolarObjects(solarObjectRepository.getAllBySystemId(1).toArray)
   }
-}
-
-class StarSystemView(val context: Context) extends View(context) {
-  private var solarObjects: Seq[SolarObject] = Seq()
-  private val paint = {
-    val paint = new Paint
-    paint.setARGB(255, 255, 255, 255)
-    paint
-  }
-  
-  override def onDraw(canvas: Canvas) = {
-    super.onDraw(canvas)
-    
-    canvas.save
-    
-    solarObjects foreach { solarObject => 
-      canvas.drawText(solarObject.name, 50, 100, solarObject.x, solarObject.y, paint)      
-    }
-    
-    canvas.restore
-    invalidate
-  }
-  
-  def setSolarObjects(objects: Seq[SolarObject]) = solarObjects = objects
 }
